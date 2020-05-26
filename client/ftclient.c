@@ -60,9 +60,12 @@ int ftclient_read_command(char* buf, int size, struct command *cstruct)
 	arg = strtok (buf," ");
 	arg = strtok (NULL, " ");
 
-	if (arg != NULL){
+	if (arg != NULL && !strstr(arg, "..")){
 		// store the argument if there is one
 		strncpy(cstruct->arg, arg, strlen(arg));
+	}
+	else {
+		return -1;
 	}
 
 	// buf = command
@@ -84,10 +87,8 @@ int ftclient_read_command(char* buf, int size, struct command *cstruct)
 	strcpy(buf, cstruct->code);
 
 	// if there's an arg, append it to the buffer
-	if (arg != NULL) {
-		strcat(buf, " ");
-		strncat(buf, cstruct->arg, strlen(cstruct->arg));
-	}
+	strcat(buf, " ");
+	strncat(buf, cstruct->arg, strlen(cstruct->arg));
 	
 	return 0;
 }
