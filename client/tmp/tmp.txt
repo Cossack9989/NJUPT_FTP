@@ -1,0 +1,6 @@
+-rwxrwxr-x 1 pwn pwn 41384 May 26 08:22 ftserve
+-rw-rw-r-- 1 pwn pwn  6504 May 26 08:21 ftserve.c
+-rw-rw-r-- 1 pwn pwn  1368 May 26 08:21 ftserve.h
+-rw-rw-r-- 1 pwn pwn 43656 May 26 08:22 ftserve.o
+-rw-rw-r-- 1 pwn pwn   288 May 26 08:21 makefile
+-rw-rw-r-- 1 pwn pwn     0 May 26 08:45 tmp.txt

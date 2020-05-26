@@ -60,12 +60,11 @@ int ftclient_read_command(char* buf, int size, struct command *cstruct)
 	arg = strtok (buf," ");
 	arg = strtok (NULL, " ");
 
-	if (arg != NULL && !strstr(arg, "..")){
-		// store the argument if there is one
-		strncpy(cstruct->arg, arg, strlen(arg));
-	}
-	else {
-		return -1;
+	if (arg != NULL){
+		if (!strstr(arg, "..")){
+			// store the argument if there is one
+			strncpy(cstruct->arg, arg, strlen(arg));
+		}
 	}
 
 	// buf = command
@@ -102,7 +101,11 @@ int ftclient_get(int data_sock, int sock_control, char* arg)
 {
     char data[MAXSIZE];
     int size;
-    FILE* fd = fopen(arg, "w");
+    char tmp_fn[260];
+    memset(tmp_fn, 0, 260);
+    strcpy(tmp_fn, "tmp/");
+    strncat(tmp_fn, arg, 260-4);
+    FILE* fd = fopen(tmp_fn, "w");
     
     while ((size = recv(data_sock, data, MAXSIZE, 0)) > 0) {
         fwrite(data, 1, size, fd);
