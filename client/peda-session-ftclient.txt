@@ -1,2 +1,0 @@
-break *ftclient_read_command
-
