@@ -102,9 +102,13 @@ int ftclient_get(int data_sock, int sock_control, char* arg)
     char data[MAXSIZE];
     int size;
     char tmp_fn[260];
+    int fileSize;
+    memset(data, 0, MAXSIZE);
     memset(tmp_fn, 0, 260);
     strcpy(tmp_fn, "tmp/");
     strncat(tmp_fn, arg, 260-4);
+    fileSize = read_reply();
+    printf("file:%s;\nsize:%d\n", arg, fileSize);
     FILE* fd = fopen(tmp_fn, "w");
     
     while ((size = recv(data_sock, data, MAXSIZE, 0)) > 0) {

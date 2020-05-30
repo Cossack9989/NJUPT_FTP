@@ -53,7 +53,11 @@ void ftserve_retr(int sock_control, int sock_data, char* filename)
 {	
 	FILE* fd = NULL;
 	char data[MAXSIZE];
-	size_t num_read;							
+	size_t num_read;
+	struct stat sb;
+	char dataSizeBuf[0x20];
+	memset(dataSizeBuf, 0, 0x20);
+	memset(data, 0, MAXSIZE);
 		
 	fd = fopen(filename, "r");
 	
@@ -61,9 +65,11 @@ void ftserve_retr(int sock_control, int sock_data, char* filename)
 		// send error code (550 Requested action not taken)
 		send_response(sock_control, 550);
 		
-	} else {	
+	} else {
+		stat(filename, &sb);
 		// send okay (150 File status okay)
 		send_response(sock_control, 150);
+		send_response(sock_control, sb.st_size);
 	
 		do {
 			num_read = fread(data, 1, MAXSIZE, fd);

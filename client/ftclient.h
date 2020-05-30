@@ -20,7 +20,22 @@
 #define FTCLIENT_H
 
 #include "../common/common.h"
-
+struct thread_data {
+	pthread_t id;
+	/* the ID of the thread */
+	int number;
+	/* the number of the thread */
+	int hasbegin;
+	/* indicate the thread has started or not */
+	int fd;
+	/* the file description */
+	long start;
+	/* the offset of its part */
+	long end;
+	/* the end of its thread */
+	int errornum;
+	/* record the thread's error number */
+}; 
 
 /**
  * Receive a response from server
